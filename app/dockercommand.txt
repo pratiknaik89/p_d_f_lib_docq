@@ -1,0 +1,4 @@
+docker build -t pyapp .
+docker run -d --name fastcontainer -p 8000:8000 pyapp
+
+docker exec -it fastcontainer /bin/bash

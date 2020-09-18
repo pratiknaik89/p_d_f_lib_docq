@@ -1,0 +1,48 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column  vertical-align="middle"> 
+            
+            <mj-text vertical-align="middle" font-size="40px" align="left" color="#6fa86f" font-family="helvetica">
+             <img style="height:30px" src="https://elevate-holistics.com/wp-content/themes/elevate-theme/assets/img/logo.svg" />
+            <span style="vertical-align:top">Elevate Holistics</span></mj-text>
+           
+            
+       
+        <mj-divider  border-color="#6fa86f"></mj-divider>
+        <mj-text font-size="20px" font-family="helvetica" font-weight="bold" align="center" color="#38424b">
+          You were invited to review and sign a document
+        </mj-text>
+ <mj-spacer></mj-spacer>
+         <mj-spacer></mj-spacer>
+        <mj-text font-size="17px" line-height="26px" font-family="helvetica" align="center" color="#38424b">
+          You've been invited by [[email]] to fill out and sign the Signing document. Use the button below to get started.
+        </mj-text>
+        <mj-spacer></mj-spacer>
+        <mj-spacer></mj-spacer>
+        <mj-button href="[[link]]" background-color="#6fa86f" font-size="22px" font-family="helvetica">
+          VIEW DOCUMENT
+        </mj-button>
+        <mj-spacer></mj-spacer>
+        <mj-spacer></mj-spacer>
+        <mj-text>
+         OTP for document is <span style="font-size:20px;font-weight:light;font-family:helvetica">[[otp]]</span>
+        </mj-text>
+        <mj-spacer></mj-spacer>
+        <mj-spacer></mj-spacer> 
+       <mj-text>If you unable to click above button then copy paste below url.</mj-text>
+       <mj-text>[[link]]</mj-text>
+         <mj-divider border-width="2px" border-color="#6fa86f"></mj-divider>
+        <mj-spacer></mj-spacer>
+       
+        <mj-text font-size="18px" line-height="1.4px" font-family="helvetica" font-weight="bold" align="center" color="#38424b">
+          This invite will expire in 30 days
+        </mj-text>
+         <mj-text font-size="17px" line-height="1.4px" font-family="helvetica" align="center" color="#38424b">
+          ©2011-2020
+        </mj-text>
+       
+      </mj-column> 
+    </mj-section>
+  </mj-body>
+</mjml>
