@@ -1,2 +1,7 @@
 uvicorn main:app --reload
 
+
+-- docker 
+docker build --tag pdfgen:1.0 .
+docker tag e1d412ccc8f7 pratikdock/pdfgen:1.0
+docker push pratikdock/pdfgen
