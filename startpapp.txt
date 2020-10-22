@@ -2,6 +2,17 @@ uvicorn main:app --reload
 
 
 -- docker 
-docker build --tag pdfgen:1.0 .
+docker build --tag pdfgen:1.0
 docker tag e1d412ccc8f7 pratikdock/pdfgen:1.0
 docker push pratikdock/pdfgen
+
+-- 
+ps -ef | grep python
+kill -9 pid
+cd app
+chmod +x main.py
+nohup python3 main.py &
+
+pm2 start main.py --interpreter python3 --interpreter-args -u
+
+watch -n 0.1 ls -- for watch directory

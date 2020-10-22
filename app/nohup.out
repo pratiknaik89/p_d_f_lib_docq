@@ -1,0 +1,13 @@
+nohup: main.py: No such file or directory
+__pycache__
+conf
+controls.py
+deps
+dockercommand.txt
+icons
+main.py
+nohup.out
+pdfgen.py
+temp
+test.py
+utils.py

@@ -7,8 +7,9 @@ class Controls(object):
         self.pdf = pdf
 
     def text(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
-        print(control)
         pdf_style = self.font_style(style['fontStyle'], style['fontWeight'])
         self.pdf.set_font(style['fontFamily'],
                           style=pdf_style, size=style['fontSize'])
@@ -17,15 +18,19 @@ class Controls(object):
         self.pdf.cell(0, 10, txt=control['val'], ln=0)
 
     def note(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         pdf_style = self.font_style(style['fontStyle'], style['fontWeight'])
         self.pdf.set_font(style['fontFamily'],
                           style=pdf_style, size=style['fontSize'])
         self.pdf.set_xy(self.pixel_to_mm(
             style['left']), self.pixel_to_mm(self.top_fix(style['top'])))
-        self.pdf.cell(0, 10, txt=control['val'], ln=0)
+        self.pdf.multi_cell(0, 4, txt=control['val'])
 
     def checkbox(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         if 'val' in control and control['val'] == True:
             self.pdf.image('icons/check.png', self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
@@ -33,12 +38,16 @@ class Controls(object):
 
     #Radio Button
     def radio(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         if 'val' in control and 'value' in control['dataset']  and control['val'] == control['dataset']['value']:
             self.pdf.image('icons/check.png', self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
                        self.pixel_to_mm(20), self.pixel_to_mm(20), 'PNG', '')
 
     def ddl(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         pdf_style = self.font_style(style['fontStyle'], style['fontWeight'])
         self.pdf.set_font(style['fontFamily'],
@@ -48,22 +57,40 @@ class Controls(object):
         self.pdf.cell(0, 10, txt=control['val'], ln=0)
 
     def sign(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         newWidth = utils.imageReturnNewWidth(control['val'], style['height'])
         self.pdf.image(control['val'], self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
                        self.pixel_to_mm(newWidth), self.pixel_to_mm(style['height']), 'PNG', '')
 
     def pic(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         newWidth = utils.imageReturnNewWidth(control['val'], style['height'])
         self.pdf.image(control['val'], self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
                        self.pixel_to_mm(newWidth), self.pixel_to_mm(style['height']), 'PNG', '')
 
     def initial(self, control):
+        if 'val' not in control:
+            return
         style = control['style']
         newWidth = utils.imageReturnNewWidth(control['val'], style['height'])
         self.pdf.image(control['val'], self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
                        self.pixel_to_mm(newWidth), self.pixel_to_mm(style['height']), 'PNG', '')
+
+    def signdate(self, control):
+        if 'val' not in control:
+            return
+        style = control['style']
+        pdf_style = self.font_style(style['fontStyle'], style['fontWeight'])
+        self.pdf.set_font(style['fontFamily'],
+                          style=pdf_style, size=style['fontSize'])
+        self.pdf.set_xy(self.pixel_to_mm(
+            style['left']), self.pixel_to_mm(self.top_fix(style['top'])))
+        self.pdf.cell(0, 10, txt=control['val'], ln=0)
+
 
     def pixel_to_mm(self, pixels):
         return pixels * 0.264583
