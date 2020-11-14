@@ -3,8 +3,9 @@ import utils
 
 
 class Controls(object):
-    def __init__(self, pdf):
+    def __init__(self, pdf, format):
         self.pdf = pdf
+        self.format = format
 
     def text(self, control):
         if 'val' not in control:
@@ -34,16 +35,16 @@ class Controls(object):
         style = control['style']
         if 'val' in control and control['val'] == True:
             self.pdf.image('icons/check.png', self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
-                       self.pixel_to_mm(20), self.pixel_to_mm(20), 'PNG', '')
+                           self.pixel_to_mm(20), self.pixel_to_mm(20), 'PNG', '')
 
-    #Radio Button
+    # Radio Button
     def radio(self, control):
         if 'val' not in control:
             return
         style = control['style']
-        if 'val' in control and 'value' in control['dataset']  and control['val'] == control['dataset']['value']:
+        if 'val' in control and 'value' in control['dataset'] and control['val'] == control['dataset']['value']:
             self.pdf.image('icons/check.png', self.pixel_to_mm(style['left']), self.pixel_to_mm(self.top_fix(style['top'])),
-                       self.pixel_to_mm(20), self.pixel_to_mm(20), 'PNG', '')
+                           self.pixel_to_mm(20), self.pixel_to_mm(20), 'PNG', '')
 
     def ddl(self, control):
         if 'val' not in control:
@@ -91,11 +92,13 @@ class Controls(object):
             style['left']), self.pixel_to_mm(self.top_fix(style['top'])))
         self.pdf.cell(0, 10, txt=control['val'], ln=0)
 
-
     def pixel_to_mm(self, pixels):
         return pixels * 0.264583
 
     def top_fix(self, top):
+        if self.format == "legal":
+            return top - 10
+
         return top + 55
 
     def font_style(self, style, weight):

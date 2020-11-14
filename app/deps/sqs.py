@@ -28,7 +28,7 @@ class Sqs:
                               aws_secret_access_key=config.SECRET_KEY,
                               region_name=config.REGION)
         if config.debug == True:
-            data_set = {"Body":'{"cmpid":2,"drid":"27e6ed73-cf12-43d1-97b4-ea9e23e854c9", "dmid":"22df6ef0-14a8-4fa5-9c65-f5598e7cdb4b"}'}
+            data_set = {"Body":'{"cmpid":2,"drid":"9bd0b2a9-622b-4237-a7b8-3411a0fd3903", "dmid":"e006bbff-1744-4a2a-8408-dc01f5dadab2"}'}
             json_dump = json.dumps(data_set)
             message =  json.loads(json_dump)
             self.process_message(message)

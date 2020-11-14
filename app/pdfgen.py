@@ -52,21 +52,44 @@ class PdfGen(object):
             self.template_url = payload.url
             self.doc = payload.doc
             self.value = payload.value
-        self.pdf = fpdf.FPDF(format='A4', unit='mm', )
-        # self.pdf.set_margins(0,0)
-        self.pdf.set_top_margin(55)
-        self.pdf.set_auto_page_break(False)
-        self.pages = []
+            print("init")
 
     def setPayload(self, payload):
+        print("payload")
         self.template_url = payload.url
         self.doc = payload.doc
         self.value = payload.value
         self.completiondate = payload.completiondate
         self.pages = []
 
+        self.live_temp_template_path = self.download_pdf_locally(
+            self.template_url)
+        self._pdf_template = PdfFileReader(
+            open(self.live_temp_template_path, 'rb'))
+        height = self._pdf_template.getPage(0).mediaBox.getHeight()
+        width = self._pdf_template.getPage(0).mediaBox.getWidth()
+        self.format = 'a4'
+        if((width, height) == (841.89, 1190.55)):
+            self.format = 'a3'
+        elif((width, height) == (595.28, 841.89)):
+            self.format = 'a4'
+        elif((width, height) == (420.94, 595.28)):
+            self.format = 'a5'
+        elif((width, height) == (612, 792)):
+            self.format = 'letter'
+        elif((width, height) == (612, 1008)):
+            self.format = 'legal'
+
+        print(self.format)
+
+        self.pdf = fpdf.FPDF(format=self.format, unit='mm', )
+        # self.pdf.set_margins(0,0)
+        self.pdf.set_top_margin(55)
+        self.pdf.set_auto_page_break(False)
+        self.pages = []
+
     def generate(self, cmp):
-        self.gencontrol = Controls(self.pdf)
+        self.gencontrol = Controls(self.pdf, self.format)
         for page in self.doc:
             self.pdf.add_page()
             print("page", page)
@@ -100,8 +123,7 @@ class PdfGen(object):
 
         # Take the PDF you created above and overlay it on your template PDF
         # Open your template PDFpdf_template_file_name
-        live_temp_template_path = self.download_pdf_locally(self.template_url)
-        pdf_template = PdfFileReader(open(live_temp_template_path, 'rb'))
+        pdf_template = self._pdf_template
         numpages = pdf_template.getNumPages()
         overlay_pdf = None
 
@@ -132,7 +154,7 @@ class PdfGen(object):
             s3.upload_to_aws(result_pdf_file_name,
                              bucket_name, s3_bucket_file_name)
             self.remove_temp_file(result_pdf_file_name)
-            self.remove_temp_file(live_temp_template_path)
+            self.remove_temp_file(self.live_temp_template_path)
 
         return s3_bucket_file_name
 
@@ -169,7 +191,8 @@ class PdfGen(object):
                 tm = datetime.strptime(
                     tmstr, '%Y-%m-%dT%H:%M:%S.%f%z')
                 date = tm.strftime(format)
-                print(self.completiondate,"<<- completion date" ,date, "<<- converted date")
+                print(self.completiondate, "<<- completion date",
+                      date, "<<- converted date")
                 return date
             except Exception as e:
                 print(e)
