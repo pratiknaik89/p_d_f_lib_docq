@@ -99,7 +99,7 @@ class Controls(object):
         if self.format == "legal":
             return top - 10
 
-        return top + 55
+        return top - 7
 
     def font_style(self, style, weight):
         if style == "normal":
