@@ -24,6 +24,7 @@ def getEnv():
     config.REGION =  _respayload.AWS_SQS_REGION
     config.SECRET_KEY =  _respayload.AWS_SECRET_ACCESS_KEY
     config.QUEUE_URL = _respayload.AWS_SQS_URL
+    print(config.QUEUE_URL)
     
 
 
