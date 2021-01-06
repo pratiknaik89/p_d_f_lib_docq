@@ -100,6 +100,8 @@ class PdfGen(object):
                     recipient = self.extractRecipientName(ctrl)
                     if ctrl['type'] == 'signdate':
                         ctrl['val'] = self.getSigndate(recipient, ctrl)
+                    if ctrl['type'] == 'radio':
+                        ctrl['val'] = self.value[ctrl['dataset']['group']]['val']
                     else:
                         ctrl['val'] = self.value[ctrl['id']]['val']
                     self.writeonpage(ctrl)
